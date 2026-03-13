@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery food</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/login.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+</head>
+
+
+<body>
+    
+    <div class="modal" id="registerModal">
+      <div class="modal-content">
+        <span class="close" id="closeRegister">&times;</span>
+        <h2>Register</h2>
+        <input type="text" id="username" placeholder="Enter your name">
+        <a href="view/Register.html" class="main-btn" id="registerBtn">Register</a> 
+      </div>
+    </div>
+
+     <div class="modal" id="cartModal">
+      <div class="modal-content">
+        <span class="close" id="closeCart">&times;</span>
+        <h2>Your Cart</h2>
+        <div id="cartItems"></div>
+        <p>Total: $<span id="cartTotal">0</span></p>
+        <p>Discount (10%): $<span id="discountTotal">0</span></p>
+        <button class="main-btn" id="submitCart">Submit</button>
+        <button class="white-btn" id="cancelCart">Cancel</button>
+
+      </div>
+
+    </div>
+
+    <div class="modal" id="orderHistoryModal">
+      <div class="modal-content">
+        <span class="close" id="closeHistory">&times;</span>
+        <h2>Order History</h2>
+        <div id="historyItems"></div>
+      </div>
+    </div>
+
+ <div class="container my-5 d-none Login">
+        <section class="newsletter-section">
+            <div class="newsletter-content">
+                <h2 class="newsletter-title">Create Your Account</h2>
+                <p class="newsletter-subtitle">Join us today to unlock exclusive features and offers.</p>
+                
+                <div class="newsletter-form">
+                    <form id="registrationForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <input type="text" id="subscriberName" class="form-control" placeholder="Full Name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="email" id="subscriberEmail" class="form-control" placeholder="Email Address or Email" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <input type="password" id="password" class="form-control" placeholder="Password" required minlength="8">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" required minlength="8">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="countryCode" class="form-label">Phone Number (Optional)</label>
+                            <div class="phone-input-group">
+                                <select class="form-select country-code-select" id="countryCode">
+                                    <option value="" disabled selected>Select Country</option>
+                                </select>
+                                <input type="tel" id="phoneNumber" class="form-control phone-number-input" placeholder="Phone Number (Optional)">
+                            </div>
+                        </div>
+                        <button type="submit" class="subscribe-btn" id="registerBtn">
+                            <i class="fas fa-user-plus me-2"></i> REGISTER ACCOUNT
+                        </button>
+                        <button type="button" id="backButton" class="subscribe-btn mt-3">
+                            <i class="fa-solid fa-arrow-left me-2"></i> BACK HOME
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="benefits">
+                    <div class="benefit-item">
+                        <i class="fas fa-lock benefit-icon"></i>
+                        <span>Secure and private</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-gift benefit-icon"></i>
+                        <span>Welcome bonus offers</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-headset benefit-icon"></i>
+                        <span>24/7 Support access</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <header>
+      <nav class="navbar navbar-expand-lg navigation-wrap">
+        <div class="container">
+          <a class="navbar-brand" href="#"><img src="pic/logo.png" alt="Logo"></a>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <i class=" fa-solid fa-bars-staggered navbar-toggler-icon"></i> 
+          </button>
+          <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#Home"><i class="fas fa-home me-1"></i>HOME</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#about"><i class="fas fa-book me-1"></i>ABOUT</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="viewHistoryLink"><i class="fas fa-history me-1"></i> HISTORY's ORDER</a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link " href="#explore-food"><i class="fas fa-list me-1"></i>MENU</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="#faq"><i class="fas fa-question me-1"></i>FAQ</a>
+              </li>
+
+             
+
+            </ul>
+            <form class="d-flex">
+              <input class="form-control me-2 border shadow-lg" type="search" placeholder="Search" aria-label="Search">
+             <!-- <button type="button" onclick="SignIN()" class="main-btn rounded-3" id="SignIN">SignUP</button> -->
+            </form>
+           
+          </div>
+        </div>
+      </nav>
+    </header>
+
+
+    <section id="Home">
+        <div class="container-fluid px-0 top-banner">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-5 col-md-6">
+                  <h1>We're serve our customer with lovely </h1>
+                  <p>Foodies gave you a well foods and delivery</p>
+
+                  <!-- <div class="mt-4">
+                      <button class="main-btn"> order now <i class="fas fa-shopping-basket ps-3"></i> </button>
+                      <button class="white-btn ms-lg-4 mt-lg-0 mt-4 "> Register<i class="fas fa-angle-right ps-3"></i> </button>
+                    </div> -->
+
+                </div>
+              </div>
+            </div>
+        </div>
+    </section>
+    <main>
+
+    <section id="counter">
+      <section class="counter-section">
+        <div class="container">
+          <div class="row text-center">
+            <div class="row text-center">
+              <div class="col-md-3 mb-lg-0 mb-md-0 mb-5">
+                <h2>
+                  <span id="count1"></span>+
+                </h2>
+                <p>SAVINGS</p>
+              </div>
+
+              <div class="col-md-3 mb-lg-0 mb-md-0 mb-5">
+                <h2>
+                  <span id="count2"></span>+
+                </h2>
+                <p>PHOTOS</p>
+              </div>
+
+              <div class="col-md-3 mb-lg-0 mb-md-0 mb-5">
+                <h2>
+                  <span id="count3"></span>+
+                </h2>
+                <p>DELIVARIES</p>
+              </div>
+
+              <div class="col-md-3 mb-lg-0 mb-md-0 mb-5">
+                <h2>
+                  <span id="count4"></span>+
+                </h2>
+                <p>CUSTOMERS</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section id="about">
+      <div class="about-section wrapper">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-7 col-md-12 mb-lg-0 mb-5">
+              <div class="card border-0">
+                <img src="pic/img-5.jpg" class="img-fluid" alt="Image 5">
+              </div>
+            </div>
+
+            <div class="col-lg-5 col-md-12 text-sec">
+              <h2>We offer healthy, tastety food from the ingredients</h2>
+              <p>Don't waste your time — let's start your journey with us</p>
+              
+            </div>
+          </div>
+
+          <div class="container food-type">
+            <div class="row align-content-center">
+              <div class="col-lg-5 col-md-12 text-sec mb-lg-0 mb-5">
+                <h2>Our food made from passion and love</h2>
+                <p>Just try FOODIES. Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, dicta suscipit eaque minima enim exercitationem consequuntur mollitia minus! Iure debitis voluptatem aliquid dolore earum incidunt nihil natus sed vero odit?</p>
+
+                <ul class="list-unstyled py-3">
+                  <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+                  <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+                  <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+                </ul>
+                <button class="main-btn mt-4">LEARN MORE</button>
+              </div>
+
+              <div class="col-lg-7 col-md-12">
+                <div class="card border-0">
+                  <img src="pic/img-2.png" class="img-fluid" alt="Image 2">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="story">
+      <div class="story-section wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="text-content">
+                <h2>since 2006, we serve to your stomach when it full 
+                  it make no different whether you rich or poor</h2>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Mollitia aperiam libero
+                      ab optio quam iure asperiores. Expedita ullam, fugit ipsam quod, nulla autem facere ut quas.
+                    <button class="main-btn mt-3">Read More</button>
+                  </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section id="explore-food">
+      <div class="explore-section wrapper">
+        <div class="container">
+          <div class="row">
+
+              <div class="col-sm-12">
+                <div class="text-content text-center">
+                  <h2>Explore our food</h2>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Iure tempora eveniet debitis aliquam atque voluptates dolor odit ipsam asperiores alias? In exercitationem id laboriosam. 
+                    Aliquid, at. Sint nisi accusamus quibusdam!</p>
+                </div>
+              </div>
+          </div>
+          <div class="row pt-5" id="food-container">
+
+            <div class="col-md-6 col-lg-4 mb-5">
+              
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : 2$</p>
+                </div>
+
+                <img src="menu/foodfast/two golden waffles t.png" class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">Pancake</h2>
+                  <p class="food-desc">Fresh & tasty dessert made daily.</p>
+
+                  <button class="add-btn">Purchase</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+            <div class="col-md-6 col-lg-4 mb-5">
+
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : 2$</p>
+                </div>
+
+                <img src="pic/img-5.jpg" class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">Cake</h2>
+                  <p class="food-desc">Fresh & tasty dessert made daily.</p>
+
+                  <button class="add-btn">Purchase</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+            <div class="col-md-6 col-lg-4 mb-5">
+
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : 2$</p>
+                </div>
+
+                <img src="menu/dessert/khmer dessert.jpg" class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">Plea Ay Dessert</h2>
+                  <p class="food-desc">Fresh & tasty dessert made daily.</p>
+
+                  <button class="add-btn">Purchase</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+            <div class="col-md-6 col-lg-4 mb-5">
+
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : 5$</p>
+                </div>
+
+                <img src="menu/dessert/khmer dessert2.jpg" class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">Banana Dessert</h2>
+                  <p class="food-desc">Fresh & tasty dessert made daily.</p>
+
+                  <button class="add-btn">Purchase</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+            <div class="col-md-6 col-lg-4 mb-5">
+
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : 2$</p>
+                </div>
+
+                <img src="menu/dessert/khmer dessert3.jpg" class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">Rice Cake</h2>
+                  <p class="food-desc">Fresh & tasty dessert made daily.</p>
+
+                  <button class="add-btn">Purchase</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+            <div class="col-md-6 col-lg-4 mb-5">
+
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : 2$</p>
+                </div>
+
+                <img src="menu/dessert/khmer dessert4.jpg" class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">Pumpkin Pie</h2>
+                  <p class="food-desc">Fresh & tasty dessert made daily.</p>
+
+                  <button class="add-btn">Purchase</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+            <div class="col-md-6 col-lg-4 mb-5">
+
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : 2$</p>
+                </div>
+
+                <img src="menu/dessert/khmer dessert 6.jpg"class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">Brown cake</h2>
+                  <p class="food-desc">Fresh & tasty dessert made daily.</p>
+
+                  <button class="add-btn">Add to Cart</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+            <div class="col-md-6 col-lg-4 mb-5">
+
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : 2$</p>
+                </div>
+
+                <img src="menu/dessert/Vanilla.jpg" class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">Vanilla Ice cream</h2>
+                  <p class="food-desc">Fresh & tasty dessert made daily.</p>
+
+                  <button class="add-btn">Purchase</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+            <div class="col-md-6 col-lg-4 mb-5">
+
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : 3.5$</p>
+                </div>
+
+                <img src="menu/dessert/Bread.png" class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">Bread christmas</h2>
+                  <p class="food-desc">Fresh & tasty dessert made daily.</p>
+
+                  <button class="add-btn">Purchase</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+            <div class="col-md-6 col-lg-4 mb-5">
+
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : 5$</p>
+                </div>
+
+                <img src="menu/dessert/chocolate Cream Pie.jpg" class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">Chocolate Cream Pie</h2>
+                  <p class="food-desc">Fresh & tasty dessert made daily.</p>
+
+                  <button class="add-btn">Purchase</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+            <div class="col-md-6 col-lg-4 mb-5">
+
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : 4$</p>
+                </div>
+
+                <img src="menu/foodfast/burger.jpg" class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">Burger</h2>
+                  <p class="food-desc">Fresh & tasty food made daily.</p>
+
+                  <button class="add-btn">Purchase</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+            <div class="col-md-6 col-lg-4 mb-5">
+
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : $</p>
+                </div>
+
+                <img src="menu/foodfast/chicken burger.jpg" class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">Sandwich</h2>
+                  <p class="food-desc">Fresh & tasty food made daily.</p>
+
+                  <button class="add-btn">Purchase</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+
+            <div class="col-md-6 col-lg-4 mb-5">
+
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : 7.9$</p>
+                </div>
+
+                <img src="menu/foodfast/fast-food.jpg" class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">1 SET</h2>
+                  <p class="food-desc">Fresh & tasty food made daily.</p>
+
+                  <button class="add-btn">Purchase</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+
+
+            <div class="col-md-6 col-lg-4 mb-5">
+
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : 4$</p>
+                </div>
+
+                <img src="menu/foodfast/Kimbab.png" class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">KIMBAB</h2>
+                  <p class="food-desc">Fresh & tasty food made daily.</p>
+
+                  <button class="add-btn">Purchase</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+
+            <div class="col-md-6 col-lg-4 mb-5">
+
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : 5$</p>
+                </div>
+
+                <img src="menu/foodfast/chinese noodles.png" class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">Chinese Noodle</h2>
+                  <p class="food-desc">Fresh & tasty food made daily.</p>
+
+                  <button class="add-btn">Purchase</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+
+            <div class="col-md-6 col-lg-4 mb-5">
+
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : 6$</p>
+                </div>
+
+                <img src="menu/foodfast/Ramen.png" class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">Ramen</h2>
+                  <p class="food-desc">Fresh & tasty food made daily.</p>
+
+                  <button class="add-btn">Purchase</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+
+            <div class="col-md-6 col-lg-4 mb-5">
+
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : 6$</p>
+                </div>
+
+                <img src="menu/foodfast/khmer noodle.png" class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">Khmer Noodles</h2>
+                  <p class="food-desc">Fresh & tasty food made daily.</p>
+
+                  <button class="add-btn">Purchase</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+
+            <div class="col-md-6 col-lg-4 mb-5">
+
+              <div class="card">
+                <div class="food-card shadow-sm">
+
+                <div class="price-tag">
+                  <p>Price : 6$</p>
+                </div>
+
+                <img src="menu/foodfast/Mayu Miso.png" class="img-fluid food-img" alt="Food">
+
+                <div class="food-content">
+                  <h2 class="food-title">Mayu Miso Ramen</h2>
+                  <p class="food-desc">Fresh & tasty food made daily.</p>
+
+                  <button class="add-btn">Purchase</button>
+                </div>
+
+              </div>
+              </div>
+              
+            </div>
+
+ <!-- error found -->
+          </div> <div id="no-menu-message" class="text-center mt-5" style="display: none;">
+              <h3>NO MENU NAME FOUND</h3>
+          </div>
+
+
+          </div>
+
+         
+        </div>
+      </div>
+    </section>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonial">
+      <div class="wrapper testimonial-section">
+        <div class="container text-center">
+          <div class="text-center pb-4">
+            <h2>testimonial</h2>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-lg-10 offset-lg-1">
+              <div id="carouselExampleDark" class="carousel slide" data-bs-ride="carousel">
+
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+
+                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+
+                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+                </div>
+
+                <div class="carousel-inner">
+
+                  <div class="carousel-item active">
+                    <div class="carousel-caption">
+                      <img src="pic/review-1.jpg">
+                      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                      <h5>Johnthan Doe - UX Designer</h5>
+                    </div>
+                  </div>
+
+                  <div class="carousel-item">
+                    <div class="carousel-caption">
+                      <img src="pic/review-2.jpg">
+                      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                      <h5>Maccy Doe - Front End</h5>
+                    </div>
+                  </div>
+
+                  <div class="carousel-item">
+                    <div class="carousel-caption">
+                      <img src="pic/profile.jpg">
+                      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                      <h5>Roben Doe - Web Developer</h5>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="faq">
+      <div class="faq wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="text-center pb-4">
+                <h2>Frequently Asked Question</h2>
+              </div>
+            </div>
+          </div>
+            <div class="row pt-5">
+
+              <div class="col-sm-6 mb-4">
+                <h4><span>~</span> Is Foodies Bread really bake fresh each day?</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est minima ea facere illum repellendus porro voluptates aliquid perferendis,
+                  quos, distinctio sint quibusdam tempora consequatur saepe. Repellat ex aliquid aut odio.</p>
+              </div>
+
+              <div class="col-sm-6 mb-4">
+                <h4><span>~</span> Can I order your products online?</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est minima ea facere illum repellendus porro voluptates aliquid perferendis,
+                  quos, distinctio sint quibusdam tempora consequatur saepe. Repellat ex aliquid aut odio.</p>
+              </div>
+
+              <div class="col-sm-6 mb-4">
+                <h4><span>~</span> Do you containing fats or products?</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est minima ea facere illum repellendus porro voluptates aliquid perferendis,
+                  quos, distinctio sint quibusdam tempora consequatur saepe. Repellat ex aliquid aut odio.</p>
+              </div>
+
+              <div class="col-sm-6 mb-4">
+                <h4><span>~</span> When we are opening a shop near me?</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est minima ea facere illum repellendus porro voluptates aliquid perferendis,
+                  quos, distinctio sint quibusdam tempora consequatur saepe. Repellat ex aliquid aut odio.</p>
+              </div>
+
+            </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="book-food">
+      <div class="book-food">
+        <div class="container book-food-text ">
+          <div class="row text-center">
+            <div class="col-lg-9 col-md-12">
+              <h2>Bake fresh daily by bakers with passion.</h2>
+            </div>
+            <div class="col-lg-3 col-md-12 mt-lg-0 mt-4">
+              <button class="main-btn">Learn More</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+</main>
+
+<footer id="footer">
+      
+  <div class="footer py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+              <a class="footer-link" href="#Home">HOME</a>
+              <a class="footer-link" href="#explore-food">MENU</a>
+              <a class="footer-link" href="#faq">FAQ</a>
+              <div class="footer-social pt-4 text-center">
+                <a href="https://www.facebook.com/share/1Ein53Dp61/"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.instagram.com/"><i class="fa-brands fa-square-instagram"></i></a>
+                <a href="https://www.tiktok.com/en/"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://t.me/Srunnnn"><i class="fa-brands fa-telegram"></i></a>
+              </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="footer-copy ">
+          <div class="copy-right text-center pt-5">
+            <p class="text-light">@ 2025. Foodies. All right reverse</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+<script src="main.js" defer></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+</body>
+</html>
