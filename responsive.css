@@ -1,0 +1,167 @@
+
+
+
+
+
+/* Responsive */
+@media (max-width:1024px) {
+  /* about setion */
+   .navigation-wrap{
+    text-align: center;
+    background-color: var(--white-color);
+  }
+
+  .footer .footer-linked,
+.footer a i{
+    padding: 0 0.7rem;
+}
+}
+
+@media (max-width: 991)
+{
+  /* custom class */
+  .text-content{
+    width: 100%;
+
+  }
+  /* navber brand */
+  .navigation-wrap .navbar-brand img{
+    height: 3.9rem;
+
+  }
+  .navigation-wrap{
+    text-align: center;
+    background-color: var(--white-color);
+  }
+  .navigation-wrap .nav-link{
+    line-height: 1.875rem;
+  }
+
+  .top-banner{
+    padding: 9.4rem 0 9rem;
+  }
+
+}
+
+
+
+
+@media (max-width: 767px) {
+  h1 {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    text-align: center;
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.6rem;
+    text-align: center;
+  }
+
+  /* banner */
+  .top-banner {
+    padding: 8rem 0 7rem;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .top-banner .mt-4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+   .navigation-wrap{
+    text-align: center;
+    background-color: var(--white-color);
+  }
+
+  /* logo */
+  .navigation-wrap .navbar-brand img {
+    width: 100px;
+    height: auto;
+  }
+
+  /* counter */
+  .counter-section .col-md-3 {
+    width: 100%;
+  }
+
+  .counter-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .counter-section p {
+    font-size: 0.85rem;
+  }
+
+  /* buttons */
+  .main-btn,
+  .white-btn {
+    width: 80%;
+    text-align: center;
+  }
+  
+  /* story-section */
+  .story-section{
+    height: auto;
+    padding: 3rem 0;
+  }
+
+
+/*footer*/
+.footer .footer-linked,
+.footer a i{
+    padding: 0 0.7rem;
+}
+
+}
+
+/* ======================================
+   Very Small Phones (max-width: 480px)
+====================================== */
+@media (max-width: 480px) {
+
+   
+  .top-banner {
+    padding: 7rem 0 6rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .main-btn,
+  .white-btn {
+    font-size: 0.85rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .navbar-brand img {
+    width: 80px;
+  }
+
+  .counter-section h2 {
+    font-size: 1.5rem;
+  }
+  
+}
+
+
+
+
+
+
+
+
+
+ 
